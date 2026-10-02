@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="frontend/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="py-4">
+  <!-- PHASE 2: build the page here.
+
+        Your backend (Phase 1) is already running with real data in it,
+        so build this page straight against the API - there is no
+        in-memory or localStorage stage this time.
+
+        1. Navbar-->
+
+  <div class="container">
+    <div class="navbar navbar-expand-lg navbar-dark bg-dark-purple rounded-4 px-4 mb-4 shadow-sm">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="index.html"><i class="fa-solid fa-wallet me-2"></i> ExpenseTracker</a>
+        <div class="d-flex w-50 mx-auto">
+          <input type="text" id="searchInput" 
+            class="form-control form-control-sm bg-white bg-opacity-10 text-white border-0 placeholder-light"
+            placeholder="search">
+        </div>
+        <div class="text-white d-flex align-items-center gap-3">
+          <span class="badge bg-accent-purple">Oct 2026</span>
+          <span class="fw-medium">Heba</span>
+        </div>
+       
+       <button class="btn btn-sm btn-outline-light rounded-pill px-3" id="darkModeBtn" onclick="toggleDarkMode()">
+  <i class="fa-solid fa-moon"></i>
+</button>
+      </div>
+        
+      </div>
+    </div>
+
+    <!--
+        2. Summary cards: total amount, number of expenses, highest expense
+      -->
+    <div class="row g-4 mb-4">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 p-3">
+          <div class="card-body">
+            <h6 class="text-muted mb-2">Total Expenses</h6>
+            <h3 id="totalAmount" class="fw-bold text-dark-purple mb-1">0.00 JOD</h3>
+            <small class="text-success">Total Transactions Count <span id="totalCount">0</span></small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 p-3">
+          <div class="card-body">
+            <h6 class="text-muted mb-4">Total Expenses Count</h6>
+            <h3 id="expensesCountCard" class="fw-bold text-dark-purple mb-1">0</h3>
+            <small class="text-muted">ALL Catigorey register</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 p-3">
+          <div class="card-body">
+            <h6 class="text-muted mb-2">Highest Expense</h6>
+            <h3 id="highestExpense" class="fw-bold text-dark-purple mb-1">0.00 JOD</h3>
+            <small id="highestTitle" class="text-accent-purple fw-medium">--</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Row to align Form and Table properly -->
+    <div class="row g-4">
+      <!--   3. Form to add an expense: title, amount, category (select), date
+      -->
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 p-3">
+          <div class="card-body">
+            <h5 class="fw-bold text-dark-purple mb-3"><i class="fa-solid fa-plus-circle me-1"></i> Add new expensive</h5>
+            <form id="expenseForm">
+              <div class="mb-3">
+                <label class="form-label small fw-medium">Title</label>
+                <input type="text" id="title" class="form-control" required placeholder="Enter Title...">
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-medium">Amount</label>
+                <input type="number" step="0.01" id="amount" class="form-control" required placeholder="Enter amount...">
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-medium"> Category</label>
+                <select id="category" class="form-select" required>
+                  <option value="Food">Food</option>
+                  <option value="Transport">Transport</option>
+                  <option value="Bills">Bills</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-medium"> Date</label>
+                <input type="date" id="date" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-dark-purple w-100 bg-dark-purple text-white py-2">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!--4. Filter by category (with an "All" option)
+          5. Table: title, amount, category, date, an edit button, a delete button
+             -->
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 p-3">
+          <div class="card-body">
+<!--chart-->
+<div class="card shadow-sm border-0 rounded-4 p-4 mb-4">
+    <h5 class="fw-bold mb-3 text-dark">Expenses by Category</h5>
+    <div style="max-width: 300px; margin: auto;">
+        <canvas id="expenseChart"></canvas>
+    </div>
+</div>
+            <!-- 4. Filter by Category -->
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+              <h5 class="fw-bold text-dark-purple m-0">Transaction List</h5>
+              <div class="d-flex align-items-center gap-2">
+              <input type="month" id="monthFilter" class="form-control form-control-sm w-auto">
+                <label class="small fw-medium text-muted">filter</label>
+                <select id="categoryFilter" class="form-select form-select-sm w-auto">
+                  <option value="All">All</option>
+                  <!--API fetch -->
+                       </select>
+              </div>
+              <button class="btn btn-sm btn-success" onclick="exportToCSV()">
+  <i class="fa-solid fa-file-excel me-1"></i> Export CSV
+</button>
+            </div>
+
+            <div class="table-responsive">
+           <div class="table-responsive">
+
+             <table class="table align-middle">
+               <thead class="table-light text-muted small">
+                 <tr>
+                <th onclick="sortTable('title')" style="cursor: pointer;">Title <i class="fa-solid fa-sort"></i></th>
+                 <th onclick="sortTable('amount')" style="cursor: pointer;">Amount <i class="fa-solid fa-sort"></i></th>
+                   <th>categrory</th>
+<th onclick="sortTable('date')" style="cursor: pointer;">Date <i class="fa-solid fa-sort"></i></th>                   <th class="text-center">actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody" class="small">
+                  <!--automatic rows-->
+                </tbody>
+              </table>
+            </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!--
+        Remember: the table rows must be built with JavaScript (DOM),
+        not written by hand in this file. -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script><!--chart libarary-->
+  <script src="frontend/js/app.js"></script>
+</body>
+
+</html>

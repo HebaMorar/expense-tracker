@@ -1,0 +1,297 @@
+:root {
+  --dark-purple: #3b2c58;
+  --accent-purple: #8c7ae6;
+  --accent-glow: rgba(140, 122, 230, 0.4);
+}
+
+.bg-dark-purple {
+  background-color: var(--dark-purple) !important;
+}
+
+.text-dark-purple {
+  color: var(--dark-purple) !important;
+}
+
+.bg-accent-purple {
+  background-color: var(--accent-purple) !important;
+}
+
+.text-accent-purple {
+  color: var(--accent-purple) !important;
+}
+
+/*button*/
+.btn {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.btn:hover {
+  transform: translateY(-4px) scale(1.02); 
+  box-shadow: 0 8px 20px var(--accent-glow) !important;
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.98); 
+}
+
+.btn-dark-purple, .bg-dark-purple[type="submit"] {
+  background-color: #3b2c58 !important;
+  border: none;
+}
+
+.btn-dark-purple:hover, .bg-dark-purple[type="submit"]:hover {
+  background-color: #4d3a73 !important;
+  box-shadow: 0 8px 25px rgba(59, 44, 88, 0.4) !important;
+}
+/*card*/
+.card {
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  will-change: transform;
+}
+
+.card:hover {
+  transform: translateY(-6px); 
+  box-shadow: 0 14px 25px rgba(59, 44, 88, 0.12) !important;
+  border-color: var(--accent-purple) !important;
+}
+/*form design*/
+.form-control, 
+.form-select {
+  transition: all 0.3s ease-in-out !important;
+  border: 1px solid #dee2e6;
+}
+
+.form-control:focus, 
+.form-select:focus {
+  border-color: var(--accent-purple) !important;
+  background-color: #fff !important;
+  box-shadow: 0 0 0 0.35rem var(--accent-glow) !important;
+  transform: translateY(-1px);
+}
+
+input.form-control, 
+textarea.form-control, 
+select.form-select {
+  color: #3b2c58 !important;
+}
+
+input.form-control::placeholder,
+textarea.form-control::placeholder {
+  color: #a095b5 !important; 
+  opacity: 1;
+}
+
+@keyframes popUp {
+  0% {
+    opacity: 0;
+    transform: translateY(25px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.container > div {
+  animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.container > .navbar {
+  animation-delay: 0.1s;
+}
+.container > .row:nth-of-type(1) {
+  animation-delay: 0.2s;
+}
+.container > .row:nth-of-type(2) {
+  animation-delay: 0.3s;
+}
+/*table*/
+.table tbody tr {
+  transition: all 0.25s ease-in-out !important;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(140, 122, 230, 0.08) !important;
+  transform: scale(1.005); 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.table .btn-sm {
+  transition: all 0.2s ease !important;
+}
+
+.table .btn-sm:hover {
+  transform: scale(1.15); 
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background-color: #121212 !important;
+  color: #e0e0e0 !important; 
+}
+
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode label,
+body.dark-mode li,
+body.dark-mode a:not(.btn) {
+  color: #dcd6f7 !important; /* لون متناسق مع الطابع البنفسجي وفاتح جداً للعين */
+}
+
+/* العناوين بجميع أنواعها لتكون ناصعة البياض وبارزة */
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode h5, 
+body.dark-mode h6 {
+  color: #ffffff !important;
+}
+
+body.dark-mode .card {
+  background-color: #1e1e1e !important;
+  color: #f8f9fa !important;
+  border: 1px solid #2d2d2d !important;
+}
+
+body.dark-mode .form-control, 
+body.dark-mode .form-select {
+  background-color: #2d2d2d !important;
+  color: #ffffff !important;
+  border-color: #444 !important;
+}
+/* تنسيق فلتر الشهر في الدارك مود ليطابق باقي الحقول والـ Selects */
+body.dark-mode input[type="month"].form-control,
+body.dark-mode #monthFilter {
+  background-color: #2d2d2d !important;
+  color: #a53a3a !important;
+  border-color: #444 !important;
+}
+
+/* تنسيق أيقونة التقويم الداخلية لتبدو واضحة في الدارك مود إن وجدت */
+body.dark-mode input[type="month"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* تعكس لون الأيقونة لتصبح بيضاء وواضحة */
+}
+body.dark-mode .form-control::placeholder {
+  color: #b0b0b0 !important;
+}
+
+body.dark-mode .table {
+  color: #f8f9fa !important;
+}
+
+body.dark-mode .table-light {
+  background-color: #2d2d2d !important;
+  color: #ffffff !important;
+}
+/* تنسيق عمود الفئات أو شارات الفئات داخل الجدول في الدارك مود */
+body.dark-mode .table td.category,
+body.dark-mode .table td:nth-child(2), /* استبدل الرقم برقم عمود الفئات إذا كان غير العمود الثاني */
+body.dark-mode .table .badge {
+  color: #dcd6f7 !important; /* لون خط فاتح وواضح متناسق مع الموقع */
+}
+
+/* إذا كانت الفئات ممثلة على شكل شارات (Badges) داخل الجدول */
+body.dark-mode .table .badge {
+  background-color: #2d2d2d !important; /* خلفية داكنة للشارة */
+  border: 1px solid var(--accent-purple) !important; /* إطار بنفسجي متناسق */
+  color: #ffffff !important;
+}
+body.dark-mode .table tbody tr:hover {
+  background-color: rgba(140, 122, 230, 0.15) !important;
+}
+
+body.dark-mode .text-muted {
+  color: #b0b0b0 !important;
+}
+
+body.dark-mode .text-dark {
+  color: #f8f9fa !important;
+}
+/*desktop*/
+
+
+
+@media (max-width: 991.98px) {
+  .navbar .w-50 {
+    width: 100% !important;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  
+  .navbar .container-fluid {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+  
+  .navbar .text-white.d-flex {
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+}
+
+.table {
+  min-width: 600px;
+}
+
+
+/* tablet  */
+@media (max-width: 767.98px) {
+  body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .card {
+    border-radius: 1rem !important;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+
+/* mobile   */
+@media (max-width: 576px) {
+  .table td, .table th {
+    white-space: nowrap;
+    padding: 10px 12px;
+  }
+}
+
+body.dark-mode .table {
+  color: #f8f9fa !important;
+  background-color: #1e1e1e !important; /* خلفية داكنة للجدول */
+}
+
+body.dark-mode .table th,
+body.dark-mode .table td {
+  background-color: transparent !important; /* جعل خلايا الجدول تأخذ لون الجدول الداكن */
+  color: #e0e0e0 !important; /* لون خط فاتح وواضح */
+  border-color: #2d2d2d !important; /* لون حدود داكن ومتناسق */
+}
+
+body.dark-mode .table-light,
+body.dark-mode .table-light > th,
+body.dark-mode .table-light > td {
+  background-color: #252525 !important;
+  color: #ffffff !important;
+  border-color: #2d2d2d !important;
+}
